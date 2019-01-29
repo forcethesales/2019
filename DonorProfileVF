@@ -1,0 +1,33 @@
+<apex:page standardController="Account" sidebar="false" extensions="AcctOppsExtension" lightningStylesheets="true" showHeader="false">
+
+		<h1>
+        The {!Account.Name}
+        </h1>
+              
+        {!Account.BillingStreet}
+        {!Account.BillingCity}, {!Account.BillingState} {!Account.BillingPostalCode}
+
+
+
+        <apex:pageBlock title="Contacts">
+           	<apex:pageBlockTable value="{!Account.contacts}" var="contact" style="border-collapse: collapse" width="700" border="1">
+              	<apex:column value="{!contact.Name}"/>
+              	<apex:column value="{!contact.Title}"/>
+              	<apex:column value="{!contact.Phone}"/>
+				<apex:column value="{!contact.MobilePhone}"/>
+               	<apex:column value="{!contact.npe01__WorkPhone__c}"/>
+              	<apex:column value="{!contact.Email}"/>
+              	<apex:column value="{!contact.DonorNotes__c}"/>
+           	</apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock >
+        	<apex:pageBlockTable value="{!opps}" var="oppt" > 
+					<apex:column value="{!oppt.Name}"/>
+					<apex:column value="{!oppt.closedate}"/>
+                  	<apex:column value="{!oppt.amount}"/>
+                  	<apex:column value="{!oppt.Campaign.Name}"/>
+                  	<apex:column value="{!oppt.Gift_Purpose__c}"/>
+                  	<apex:column value="{!oppt.Gift_Solicitor__r.Name}"/>
+            </apex:pageBlockTable>
+    	</apex:pageBlock>
+</apex:page>
