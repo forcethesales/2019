@@ -1,3 +1,5 @@
+//the first part is the visualforce page. code for the apex extension is below.
+
 <apex:page standardController="Account" sidebar="false" extensions="AcctOppsExtension" lightningStylesheets="true" showHeader="false">
     //visualforce page by Jessie Rymph, volunteer consultant Jan 29, 2019
     //works with Extension AcctOppsExtension
