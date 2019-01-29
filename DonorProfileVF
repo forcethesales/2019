@@ -1,5 +1,6 @@
 <apex:page standardController="Account" sidebar="false" extensions="AcctOppsExtension" lightningStylesheets="true" showHeader="false">
-
+    //visualforce page by Jessie Rymph, volunteer consultant Jan 29, 2019
+    //works with Extension AcctOppsExtension
 		<h1>
         The {!Account.Name}
         </h1>
@@ -8,7 +9,7 @@
         {!Account.BillingCity}, {!Account.BillingState} {!Account.BillingPostalCode}
 
 
-
+    //List of household member information
         <apex:pageBlock title="Contacts">
            	<apex:pageBlockTable value="{!Account.contacts}" var="contact" style="border-collapse: collapse" width="700" border="1">
               	<apex:column value="{!contact.Name}"/>
@@ -17,17 +18,33 @@
 				<apex:column value="{!contact.MobilePhone}"/>
                	<apex:column value="{!contact.npe01__WorkPhone__c}"/>
               	<apex:column value="{!contact.Email}"/>
-              	<apex:column value="{!contact.DonorNotes__c}"/>
            	</apex:pageBlockTable>
         </apex:pageBlock>
+    //grid to show opportunities
         <apex:pageBlock >
         	<apex:pageBlockTable value="{!opps}" var="oppt" > 
 					<apex:column value="{!oppt.Name}"/>
 					<apex:column value="{!oppt.closedate}"/>
                   	<apex:column value="{!oppt.amount}"/>
                   	<apex:column value="{!oppt.Campaign.Name}"/>
-                  	<apex:column value="{!oppt.Gift_Purpose__c}"/>
-                  	<apex:column value="{!oppt.Gift_Solicitor__r.Name}"/>
             </apex:pageBlockTable>
     	</apex:pageBlock>
+    //list of Notes. This is the newer notes object
+    <apex:relatedList subject="{!account}" list="AttachedContentNotes" />
 </apex:page>
+//that's the end of the Visualforce Page. In your sandbox, open a new Apex class called 'AcctOppsExtension'. 
+//The full code is:
+
+
+public class AcctOppsExtension {   
+	//created by Jessie Rymph, volunteer consultant Jan 29, 2019.
+	//This extension creates a list of opportunities on Visualforce Page HouseholdDetail. Extension needed to put opps in order by CloseDate.
+    public List<opportunity> opps{get;set;} 
+    private final Account acct;
+
+    public AcctOppsExtension(ApexPages.StandardController controller) { 
+		 this.acct = (Account)Controller.getRecord();
+        opps = [SELECT id,Name,CloseDate,accountid,Campaign.name,Amount FROM opportunity WHERE accountid = :acct.Id ORDER BY CloseDate DESC];     
+
+	}
+}
