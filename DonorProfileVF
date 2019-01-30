@@ -23,7 +23,7 @@
            	</apex:pageBlockTable>
         </apex:pageBlock>
     //grid to show opportunities
-        <apex:pageBlock >
+        <apex:pageBlock title="Opportunities" >
         	<apex:pageBlockTable value="{!opps}" var="oppt" > 
 					<apex:column value="{!oppt.Name}"/>
 					<apex:column value="{!oppt.closedate}"/>
