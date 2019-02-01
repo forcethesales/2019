@@ -1,8 +1,8 @@
-//the first part is the visualforce page. code for the apex extension is below.
+<!--the first part is the visualforce page. code for the apex extension is below-->
 
 <apex:page standardController="Account" sidebar="false" extensions="AcctOppsExtension" lightningStylesheets="true" showHeader="false">
-    //visualforce page by Jessie Rymph, volunteer consultant Jan 29, 2019
-    //works with Extension AcctOppsExtension
+    <!--visualforce page by Jessie Rymph, volunteer consultant Jan 29, 2019. works with Extension AcctOppsExtension-->
+    
 		<h1>
         The {!Account.Name}
         </h1>
@@ -11,7 +11,7 @@
         {!Account.BillingCity}, {!Account.BillingState} {!Account.BillingPostalCode}
 
 
-    //List of household member information
+    <!--List of household member information-->
         <apex:pageBlock title="Contacts">
            	<apex:pageBlockTable value="{!Account.contacts}" var="contact" style="border-collapse: collapse" width="700" border="1">
               	<apex:column value="{!contact.Name}"/>
@@ -22,7 +22,7 @@
               	<apex:column value="{!contact.Email}"/>
            	</apex:pageBlockTable>
         </apex:pageBlock>
-    //grid to show opportunities
+    <!--grid to show opportunities-->
         <apex:pageBlock title="Opportunities" >
         	<apex:pageBlockTable value="{!opps}" var="oppt" > 
 					<apex:column value="{!oppt.Name}"/>
@@ -31,16 +31,17 @@
                   	<apex:column value="{!oppt.Campaign.Name}"/>
             </apex:pageBlockTable>
     	</apex:pageBlock>
-    //list of Notes. This is the newer notes object
+    <!--list of Notes. This is the newer notes object-->
     <apex:relatedList subject="{!account}" list="AttachedContentNotes" />
 </apex:page>
-//that's the end of the Visualforce Page. In your sandbox, open a new Apex class called 'AcctOppsExtension'. 
-//The full code is:
+<!--that's the end of the Visualforce Page. In your sandbox, open a new Apex class and call it 'AcctOppsExtension'. -->
+<!--Paste in the code below-->
 
 
 public class AcctOppsExtension {   
-	//created by Jessie Rymph, volunteer consultant Jan 29, 2019.
-	//This extension creates a list of opportunities on Visualforce Page HouseholdDetail. Extension needed to put opps in order by CloseDate.
+	<!--created by Jessie Rymph, volunteer consultant Jan 29, 2019.
+	This extension creates a list of opportunities on Visualforce Page HouseholdDetail. 
+	Extension needed to put opps in order by CloseDate.-->
     public List<opportunity> opps{get;set;} 
     private final Account acct;
 
