@@ -1,0 +1,55 @@
+public class ContactAndLeadSearch {
+
+    public static List <Contact> searchContactsAndLeads (string Param)
+    {
+        List<List<sObject>> searchList = [FIND 'Smith' IN ALL FIELDS 
+                           RETURNING Lead(FirstName,LastName WHERE Lastname =:Param), Contact(FirstName,LastName WHERE Lastname=:Param)];
+        Lead[] searchLeads = (Lead[])searchList[0];
+        Contact[] searchContacts = (Contact[])searchList[1];
+        
+        return searchContacts;
+        
+    } 
+       System.debug('Found the following leads.');
+        for (Lead l : searchLeads) {
+           System.debug(l.FirstName);
+        }
+        System.debug('Found the following contacts.');
+        for (Contact c : searchContacts) {
+            System.debug(c.LastName + ', ' + c.FirstName);
+        
+        // Add contact and lead
+            Account acct = new Account(
+                Name='SFDC Computing',
+                Phone='(415)555-1212',
+                NumberOfEmployees=50,
+                BillingCity='San Francisco');
+            insert acct;
+            // Once the account is inserted, the sObject will be 
+            // populated with an ID.
+            // Get this ID.
+            ID acctID = acct.ID;
+            // Add a contact to this account.
+            Contact con = new Contact(
+                FirstName='Carol',
+                LastName='Smith',
+                Phone='(415)555-1212',
+                Department='Wingo',
+                AccountId=acctID);
+            insert con;
+            // Add Lead
+            Lead lead1 = new Lead(
+                FirstName='Richard',
+                LastName='Smith',
+                Phone='(310)555-1213',
+                Company='50 Dollars Even',
+                Description='Expert in wing technologies.');
+            insert lead1;
+             
+                 
+             
+            
+           
+        	}
+    }
+}
