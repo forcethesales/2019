@@ -1,3 +1,5 @@
+THIS DOES NOT WORK FOR THE TRAIL. I got it to work in execute anonymous and then I tried working in this string param thing and I don't know what I'm doing with that really.
+
 public class ContactAndLeadSearch {
 
     public static List <Contact> searchContactsAndLeads (string Param)
