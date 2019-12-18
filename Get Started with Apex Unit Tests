@@ -1,0 +1,25 @@
+//the code this is testing is here https://github.com/developerforce/trailhead-code-samples/blob/master/VerifyDate.cls
+
+@isTest
+private class TestVerifyDate {
+    @isTest static void testTwoYears () {
+        Date datdat = VerifyDate.CheckDates(date.newInstance(2012,05,22),date.NewInstance(2013,05,02));
+                                            
+        System.assertEquals (date.newInstance(2012,05,31),datdat);
+    }
+	@isTest static void test20DaysLater () {
+        Date datdat = VerifyDate.CheckDates(date.newInstance(2012,05,02),date.NewInstance(2012,05,22));
+                                            
+        System.assertEquals (date.newInstance(2012,05,22),datdat);
+    }
+    @isTest static void test20DaysEarlier () {
+        Date datdat = VerifyDate.CheckDates(date.newInstance(2012,04,20),date.NewInstance(2012,05,10));
+                                            
+        System.assertEquals (date.newInstance(2012,05,10),datdat);
+    }
+     @isTest static void testsameDate () {
+        Date datdat = VerifyDate.CheckDates(date.newInstance(2012,05,02),date.NewInstance(2012,05,02));
+                                            
+        System.assertEquals (date.newInstance(2012,05,02),datdat);
+    }
+}
