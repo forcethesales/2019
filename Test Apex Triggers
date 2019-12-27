@@ -1,0 +1,44 @@
+@isTest
+private class TestRestrictContactByName {
+    @isTest static void TestInsertWithINVALIDNAME() {
+        // Perform test
+        Test.startTest(); //this resets the limits but it's optional. we start our test before trying to insert the contact because that's what we're trying to test. 
+        Contact santa = new Contact(LastName='INVALIDNAME');
+        Database.SaveResult result = Database.insert(santa,false);
+        Test.stopTest();
+        // Verify 
+        // In this case the insertion should be stopped by the trigger
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('The Last Name "INVALIDNAME" is not allowed for DML',
+                             result.getErrors()[0].getMessage());
+    }
+    @isTest static void TestUpdateWithINVALIDNAME() {
+		//insert valid name then update it. we can start the test after the insert because we're testing the update this time.
+        Contact santa = new Contact(LastName='CLAUS');
+        insert santa;
+        
+        // Perform test
+        Test.startTest(); //this resets the limits but it's optional
+        
+        santa.LastName = 'INVALIDNAME';
+        Database.SaveResult result = Database.update(santa,false);
+        Test.stopTest();
+        // Verify 
+        // In this case the insertion should be stopped by the trigger
+        // so verify that we got back an error.
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('The Last Name "INVALIDNAME" is not allowed for DML',
+                             result.getErrors()[0].getMessage());
+    }
+    @isTest static void TestInsertWithValidName() {
+        // Test data setup
+        // Try to insert contact with allowed name
+        Contact elvis = new Contact(LastName='Rymph');
+        insert elvis;
+        system.debug('successfully inserted' + elvis.LastName);
+
+    }
+}
